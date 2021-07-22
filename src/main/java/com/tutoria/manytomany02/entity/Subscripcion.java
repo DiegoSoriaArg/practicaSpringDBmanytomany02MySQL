@@ -1,43 +1,36 @@
 package com.tutoria.manytomany02.entity;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 @Entity
 public class Subscripcion {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@EmbeddedId
+	private SubscripcionID subscripcionid;
 	
 	private int likes;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
+	@MapsId("idUser")
 	private Usuario usuario;
 	
 	@ManyToOne
 	@JoinColumn(name = "canal_id")
+	@MapsId("idCanal")
 	private Canal canal;
 
 	public Subscripcion() {
 	}
 
-	public Subscripcion(Usuario usuario, Canal canal) {
+	public Subscripcion(SubscripcionID subscripcionid, Usuario usuario, Canal canal) {
+		this.subscripcionid = subscripcionid;
 		this.usuario = usuario;
 		this.canal = canal;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getLikes() {

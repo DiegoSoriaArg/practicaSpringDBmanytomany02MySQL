@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tutoria.manytomany02.entity.Canal;
 import com.tutoria.manytomany02.entity.Subscripcion;
+import com.tutoria.manytomany02.entity.SubscripcionID;
 import com.tutoria.manytomany02.entity.Usuario;
 import com.tutoria.manytomany02.repository.CanalRepository;
 import com.tutoria.manytomany02.repository.SubscripcionRepository;
@@ -27,7 +28,8 @@ public class MainService {
 	public void createSub(int idUser, int idCanal) {
 		Usuario usuario = usuarioRepository.findById(idUser).get();
 		Canal canal = canalRepository.findById(idCanal).get();
-		Subscripcion subscripcion = new Subscripcion(usuario, canal);
+		SubscripcionID id = new SubscripcionID(idUser, idCanal);
+		Subscripcion subscripcion = new Subscripcion(id, usuario, canal);
 		subscripcionRepository.save(subscripcion);
 	}
 	
